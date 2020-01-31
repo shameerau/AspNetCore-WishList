@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using WishList.Data;
 
 namespace WishList
 {
@@ -18,6 +19,8 @@ namespace WishList
         {
             //services.AddDbContext<ApplicationDbContext>
             services.AddMvc();
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("WishList"), ServiceLifetime.Scoped);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,7 +34,15 @@ namespace WishList
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseMvcWithDefaultRoute();
+            app.UseMvcWithDefaultRoute();           
+
+        }
+
+        public static void SeedData(ApplicationDbContext context)
+        {
+            context.Items.Add(new Models.Item { Id = 1, Description = "Item 1"});
+            context.Items.Add(new Models.Item { Id = 2, Description = "Item 2" });
+            context.Items.Add(new Models.Item { Id = 3, Description = "Item 3" });
         }
     }
 }
