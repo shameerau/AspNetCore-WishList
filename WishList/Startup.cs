@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WishList.Data;
@@ -34,15 +34,10 @@ namespace WishList
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseMvcWithDefaultRoute();           
-
+            
+            app.UseMvcWithDefaultRoute();            
+            
         }
-
-        public static void SeedData(ApplicationDbContext context)
-        {
-            context.Items.Add(new Models.Item { Id = 1, Description = "Item 1"});
-            context.Items.Add(new Models.Item { Id = 2, Description = "Item 2" });
-            context.Items.Add(new Models.Item { Id = 3, Description = "Item 3" });
-        }
+        
     }
 }
